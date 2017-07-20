@@ -20,7 +20,8 @@ public class EventGuild
         try
         {
             Schema schema = DungeonMaster.getInstance().db.getSchema("dungeon_master");
-            Table table = schema.getTable("player_profiles");
+            Table player_profiles = schema.getTable("player_profiles");
+            Table player_stats = schema.getTable("player_stats");
             Statement statement = schema.createStatement();
             for (IUser user : event.getGuild().getUsers())
             {
@@ -28,7 +29,10 @@ public class EventGuild
                     continue;
 
                 statement.executeUpdate(String.format("INSERT IGNORE INTO %s (ID, NAME, LEVEL) VALUES ('%s', '%s', 1);",
-                        table.getName(), user.getStringID(), user.getName()));
+                        player_profiles.getName(), user.getStringID(), user.getName()));
+                statement.executeUpdate(String.format("INSERT IGNORE INTO %s (ID, HP, MP, STR, DEX, INTEL, PDEF, MDEF, " +
+                        "MND, SPD, LUK) VALUES ('%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
+                        player_stats.getName(), user.getStringID(), 500, 100, 5, 5, 5, 5, 5, 10, 10, 5, 5));
             }
             statement.close();
         }

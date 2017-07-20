@@ -1,34 +1,21 @@
 package xyz.skettios.dungeonmaster.command;
 
-import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.util.EmbedBuilder;
 import xyz.skettios.dungeonmaster.DungeonMaster;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URL;
 
-@CommandAlias(aliases = { "help" })
+@CommandAlias(aliases = {"help"})
 public class CommandHelp implements ICommand
 {
-    private EmbedObject embedObject;
-
     public CommandHelp()
     {
-        EmbedBuilder builder = new EmbedBuilder();
-        builder.appendField("Commands", "Test", false);
-        builder.appendDesc("Something hahahah");
-        builder.withColor(Color.red);
-        builder.setLenient(true);
-
-        embedObject = builder.build();
     }
 
     @Override

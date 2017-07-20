@@ -51,6 +51,10 @@ public class DungeonMaster
         Schema schema = db.addSchema("dungeon_master");
         schema.addTable("player_profiles",
                 "(ID varchar(128) KEY NOT NULL, NAME varchar(128) NOT NULL, LEVEL INT NOT NULL)");
+        schema.addTable("player_stats",
+                "(ID varchar(128) KEY NOT NULL, HP INT NOT NULL, MP INT NOT NULL, STR INT NOT NULL, " +
+                        "DEX INT NOT NULL, INTEL INT NOT NULL, PDEF INT NOT NULL, MDEF INT NOT NULL, " +
+                        "MND INT NOT NULL, SPD INT NOT NULL, LUK INT NOT NULL)");
 
         dispatcher.registerListener(new EventReady());
     }

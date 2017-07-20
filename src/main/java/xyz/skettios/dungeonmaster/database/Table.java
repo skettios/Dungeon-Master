@@ -1,7 +1,5 @@
 package xyz.skettios.dungeonmaster.database;
 
-import xyz.skettios.dungeonmaster.DungeonMaster;
-
 import java.sql.SQLException;
 import java.sql.Statement;
 

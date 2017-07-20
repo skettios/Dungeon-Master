@@ -6,6 +6,8 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
 import xyz.skettios.dungeonmaster.command.CommandRegistry;
+import xyz.skettios.dungeonmaster.database.Database;
+import xyz.skettios.dungeonmaster.database.Schema;
 import xyz.skettios.dungeonmaster.event.EventReady;
 
 public class DungeonMaster
@@ -16,13 +18,13 @@ public class DungeonMaster
     private IDiscordClient discordClient;
 
     public final Logger LOGGER = LoggerFactory.getLogger("Dungeon Master");
-
-    public final CommandRegistry commandRegistry;
+    public final CommandRegistry cmdReg;
+    public Database db;
 
     private DungeonMaster()
     {
         clientBuilder = new ClientBuilder();
-        commandRegistry = new CommandRegistry();
+        cmdReg = new CommandRegistry();
     }
 
     public static DungeonMaster getInstance()
@@ -33,10 +35,11 @@ public class DungeonMaster
         return instance;
     }
 
-    public void login(String token)
+    public void login(String token, String dbUser, String dbPass)
     {
         clientBuilder.withToken(token);
         discordClient = clientBuilder.login();
+        db = new Database(dbUser, dbPass);
 
         initialize();
     }
@@ -44,6 +47,11 @@ public class DungeonMaster
     private void initialize()
     {
         EventDispatcher dispatcher = discordClient.getDispatcher();
+
+        Schema schema = db.addSchema("dungeon_master");
+        schema.addTable("player_profiles",
+                "(ID varchar(128) KEY NOT NULL, NAME varchar(128) NOT NULL, LEVEL INT NOT NULL)");
+
         dispatcher.registerListener(new EventReady());
     }
 }

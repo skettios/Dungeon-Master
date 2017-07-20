@@ -1,17 +1,11 @@
 package xyz.skettios.dungeonmaster;
 
-import xyz.skettios.dungeonmaster.util.DatabaseHelper;
-
 import java.io.File;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        // TODO(skettios): Temporary!
-        DatabaseHelper.USER = args[1];
-        DatabaseHelper.PASS = args[2];
-
         File cache = new File("cache/");
         if (!cache.mkdir() && !cache.exists())
         {
@@ -22,7 +16,7 @@ public class Main
         System.loadLibrary("webp-imageio");
         System.setProperty("http.agent", "Chrome");
 
-        DungeonMaster.getInstance().login(args[0]);
+        DungeonMaster.getInstance().login(args[0], args[1], args[2]);
 
         if (cache.isDirectory() && cache.listFiles().length > 0)
         {

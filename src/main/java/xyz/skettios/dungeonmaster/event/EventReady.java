@@ -4,21 +4,29 @@ import sx.blah.discord.api.events.EventDispatcher;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import xyz.skettios.dungeonmaster.DungeonMaster;
-import xyz.skettios.dungeonmaster.util.DatabaseHelper;
+
+import java.sql.SQLException;
 
 public class EventReady
 {
     @EventSubscriber
     public void onReady(ReadyEvent event)
     {
-        DungeonMaster.getInstance().commandRegistry.initialize();
+        try
+        {
+            DungeonMaster.getInstance().cmdReg.initialize();
 
-        EventDispatcher dispatcher = event.getClient().getDispatcher();
-        dispatcher.registerListener(new EventCommand());
-        dispatcher.registerListener(new EventGuild());
+            DungeonMaster.getInstance().db.build();
 
-        DatabaseHelper.createDatabase(DatabaseHelper.DB);
+            EventDispatcher dispatcher = event.getClient().getDispatcher();
+            dispatcher.registerListener(new EventCommand());
+            dispatcher.registerListener(new EventGuild());
 
-        DungeonMaster.getInstance().LOGGER.info("Bot Ready!");
+            DungeonMaster.getInstance().LOGGER.info("Bot Ready!");
+        }
+        catch (SQLException e)
+        {
+            DungeonMaster.getInstance().LOGGER.error(e.getMessage());
+        }
     }
 }

@@ -5,6 +5,7 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 import xyz.skettios.dungeonmaster.DungeonMaster;
 import xyz.skettios.dungeonmaster.command.CommandRegistry;
 
+//TODO(skettios): something better, just not this lul
 public class EventCommand
 {
     @EventSubscriber
@@ -15,17 +16,17 @@ public class EventCommand
         {
             String[] commandSplit = message.substring(3).split(" ");
             String command = commandSplit[0];
-            if (commandSplit.length > 1)
+            if (commandSplit.length >= 1)
             {
                 String[] commandArgs = new String[commandSplit.length - 1];
-                for (int i = 1; i < commandArgs.length; i++)
+                for (int i = 1; i <= commandArgs.length; i++)
                     commandArgs[i - 1] = commandSplit[i];
 
-                DungeonMaster.getInstance().commandRegistry.executeCommand(event.getMessage(), command, commandArgs);
+                DungeonMaster.getInstance().cmdReg.executeCommand(event.getMessage(), command, commandArgs);
             }
             else
             {
-                DungeonMaster.getInstance().commandRegistry.executeCommand(event.getMessage(), command);
+                DungeonMaster.getInstance().cmdReg.executeCommand(event.getMessage(), command);
             }
         }
     }

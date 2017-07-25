@@ -13,7 +13,7 @@ public class Main
             return;
         }
 
-        System.loadLibrary("webp-imageio");
+        Runtime.getRuntime().loadLibrary("webp-imageio");
         System.setProperty("http.agent", "Chrome");
 
         DungeonMaster.getInstance().login(args[0], args[1], args[2]);

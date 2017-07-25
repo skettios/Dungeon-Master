@@ -18,6 +18,8 @@ repositories {
 
 dependencies {
     compile "com.github.austinv11:Discord4J:2.8.4"
+    compile 'com.github.Discord4J-Addons:Module-Loader-Plus:1.0.3'
+    compile 'com.github.Discord4J-Addons:Commands4J:2.0'
     compile group: "mysql", name: "mysql-connector-java", version: "5.1.13"
     compile name: 'luciad-webp-imageio'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.8.0-alpha2'

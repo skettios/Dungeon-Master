@@ -1,9 +1,11 @@
 package xyz.skettios.dungeonmaster.command;
 
-import sx.blah.discord.handle.obj.IMessage;
+import com.sun.istack.internal.NotNull;
 
 public interface ICommand
 {
-    //TODO(skettios): args should be vararg of Object
-    void execute(IMessage message, String... args);
+    @NotNull
+    String[] getAliases();
+
+    void execute(CommandContext ctx);
 }

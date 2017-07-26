@@ -20,6 +20,7 @@ public class EventGuild
         try
         {
             Schema schema = DungeonMaster.getInstance().db.getSchema("dungeon_master");
+
             Table player_profiles = schema.getTable("player_profiles");
             Table player_stats = schema.getTable("player_stats");
             Statement statement = schema.createStatement();
@@ -28,11 +29,11 @@ public class EventGuild
                 if (user.isBot())
                     continue;
 
-                statement.executeUpdate(String.format("INSERT IGNORE INTO %s (ID, NAME, LEVEL) VALUES ('%s', '%s', 1);",
-                        player_profiles.getName(), user.getStringID(), user.getName()));
+                statement.executeUpdate(String.format("INSERT IGNORE INTO %s (ID, NAME, LEVEL) VALUES (%d, '%s', 1);",
+                        player_profiles.getName(), user.getLongID(), user.getName()));
                 statement.executeUpdate(String.format("INSERT IGNORE INTO %s (ID, HP, MP, STR, DEX, INTEL, PDEF, MDEF, " +
-                        "MND, SPD, LUK) VALUES ('%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
-                        player_stats.getName(), user.getStringID(), 500, 100, 5, 5, 5, 5, 5, 10, 10, 5, 5));
+                                "MND, SPD, LUK) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
+                        player_stats.getName(), user.getLongID(), 500, 100, 5, 5, 5, 5, 10, 10, 5, 5));
             }
             statement.close();
         }

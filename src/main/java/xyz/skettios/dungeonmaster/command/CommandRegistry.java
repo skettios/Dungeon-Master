@@ -88,8 +88,13 @@ public class CommandRegistry
             Schema schema = DungeonMaster.getInstance().db.getSchema("dungeon_master");
             Table guild_prefixes = schema.getTable("guild_prefixes");
             Statement statement = guild_prefixes.createStatement();
-            statement.executeUpdate(String.format("INSERT INTO %s (ID, PREFIX) VALUES (%d, '%s');",
-                    guild_prefixes.getName(), id, prefix));
+            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM %s WHERE ID = %d;", guild_prefixes.getName(), id));
+            if (!rs.next())
+                statement.executeUpdate(String.format("INSERT INTO %s (ID, PREFIX) VALUES (%d, '%s');",
+                        guild_prefixes.getName(), id, prefix));
+            else
+                statement.executeUpdate(String.format("UPDATE %s SET PREFIX='%s' WHERE ID = %d;",
+                        guild_prefixes.getName(), prefix, id));
             statement.close();
         }
         catch (SQLException e)

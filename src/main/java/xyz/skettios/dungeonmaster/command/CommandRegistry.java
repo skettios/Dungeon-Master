@@ -2,6 +2,7 @@ package xyz.skettios.dungeonmaster.command;
 
 import sx.blah.discord.handle.obj.IGuild;
 import xyz.skettios.dungeonmaster.DungeonMaster;
+import xyz.skettios.dungeonmaster.command.impl.CommandAudio;
 import xyz.skettios.dungeonmaster.command.impl.CommandPing;
 import xyz.skettios.dungeonmaster.command.impl.CommandPrefix;
 import xyz.skettios.dungeonmaster.command.impl.CommandTest;
@@ -27,6 +28,7 @@ public class CommandRegistry
         registerCommand(new CommandPing());
         registerCommand(new CommandPrefix());
         registerCommand(new CommandTest());
+        registerCommand(new CommandAudio());
     }
 
     private void registerCommand(ICommand command)
